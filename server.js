@@ -6,6 +6,8 @@ console.log("corriendo en puerto", port);
 let { MongoClient } = require("mongodb");
 let db;
 
+app.use(express.static('public')) //acepta incoming request desde la carpeta public
+
 async function go() {
   let client = new MongoClient(process.env.MONGOSTRING);
   await client.connect();
@@ -51,14 +53,15 @@ app.get("/", function (req, res) {
         .join("")}
     </ul>
     </div>
+    <script src='/browser.js'></script>
     </body>
     </html>`);
     });
 });
 
 app.post("/create-item", (req, res) => { //crea elementos
-  db.collection("items").insertOne({ text: req.body.item }, () => {
-    res.send("thanks for submitting the form");
-    console.log(req.body.item);
+  db.collection("items").insertOne({ text: req.body.item }, () => { //inserta un elemento
+    res.redirect("/"); //recarga la pagina
   });
 });
+
