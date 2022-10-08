@@ -6,7 +6,7 @@ console.log("corriendo en puerto", port);
 let { MongoClient } = require("mongodb");
 let db;
 
-app.use(express.static('public')) //acepta incoming request desde la carpeta public
+app.use(express.static('public')) //acepta incoming requests desde la carpeta public
 
 async function go() {
   let client = new MongoClient(process.env.MONGOSTRING);
@@ -16,6 +16,7 @@ async function go() {
 }
 go();
 
+app.use(express.json())
 app.use(express.urlencoded({ extended: false })); // permite pasar formularios al backend
 
 app.get("/", function (req, res) {
@@ -53,6 +54,7 @@ app.get("/", function (req, res) {
         .join("")}
     </ul>
     </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src='/browser.js'></script>
     </body>
     </html>`);
@@ -65,3 +67,7 @@ app.post("/create-item", (req, res) => { //crea elementos
   });
 });
 
+app.post('/update-item',(req,res)=>{
+  console.log(req.body.text)
+  res.send("Success")
+})
