@@ -22,8 +22,8 @@ app.use(express.urlencoded({ extended: false })); // permite pasar formularios a
 
 function passwordProtected(req,res,next){
   res.set('WWW-Authenticate','Basic realm="Simple Todo App"')
-  //console.log(req.headers.authorization) devuelve la comb de user/password
-  if (req.headers.authorization == "Basic TGVtb25zaXg6dzNoeXM3cHM="){ //contrasenia de acceso
+  console.log(req.headers.authorization)
+  if (req.headers.authorization == "Basic YWRtaW46MTIzNA=="){ //contrasenia de acceso
     next() // si la contrasenia es correcta ejecuta la siguientefuncion que seria cargar el HTML completo
   } else{
     res.status(401).send("Authentication required") // si se cancela el prompt va a 401
