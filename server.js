@@ -13,7 +13,7 @@ async function go() { // sincroniza con mongo con un callback que espera a conec
   let client = new MongoClient(process.env.MONGOSTRING);
   await client.connect();
   db = client.db();
-  app.listen(port);
+  app.listen(port); // algo
 }
 go();
 
